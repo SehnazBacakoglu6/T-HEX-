@@ -1,42 +1,82 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HRDashboardScreen from './src/screens/HRDashboardScreen'; // Doğru yol olduğundan emin olun
-import AIAnalysisScreen from './src/screens/AIAnalysisScreen'; // Bu ekranı oluşturmanız gerekecek
-import LeaveStatsDashboardScreen from './src/screens/LeaveStatsDashboardScreen'; // Bu ekranı oluşturmanız gerekecek
+import { Provider as ReduxProvider } from 'react-redux';
+import { Provider as PaperProvider } from 'react-native-paper';
+import LoginScreen from './src/screens/LoginScreen';
+import HRDashboardScreen from './src/screens/HRDashboardScreen';
+import AIAnalysisScreen from './src/screens/AIAnalysisScreen';
+import LeaveStatsDashboardScreen from './src/screens/LeaveStatsDashboardScreen';
+import NewLeaveRequestScreen from './src/screens/NewLeaveRequestScreen';
+
+import { store } from './src/store/store';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 // RootStackParamList tipini tanımlıyoruz
 export type RootStackParamList = {
+  Login: undefined;
   HRDashboard: undefined;
   AIAnalysis: undefined;
   LeaveStatsDashboard: undefined;
-  // Diğer ekranları da ekleyin
 };
 
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="HRDashboard">
-        <Stack.Screen 
-          name="HRDashboard" 
-          component={HRDashboardScreen} 
-          options={{ title: 'İzin Talepleri' }} 
+      <Stack.Navigator
+        initialRouteName="Login"
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#f4511e',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      >
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{
+            title: 'Giriş',
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
+          name="HRDashboard"
+          component={HRDashboardScreen}
+          options={{ title: 'İzin Talepleri' }}
+        />
+        <Stack.Screen
+          name="AIAnalysis"
+          component={AIAnalysisScreen}
+          options={{ title: 'AI Analiz' }}
+        />
+        <Stack.Screen
+          name="LeaveStatsDashboard"
+          component={LeaveStatsDashboardScreen}
+          options={{ title: 'İzin İstatistikleri' }}
         />
         <Stack.Screen 
-          name="AIAnalysis" 
-          component={AIAnalysisScreen} 
-          options={{ title: 'AI Analiz' }} 
-        />
-        <Stack.Screen 
-          name="LeaveStatsDashboard" 
-          component={LeaveStatsDashboardScreen} 
-          options={{ title: 'İzin İstatistikleri' }} 
-        />
+          name="NewLeaveRequest" 
+          component={NewLeaveRequestScreen} 
+          options={{ title: 'Yeni İzin Talebi' }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
-export default AppNavigator;
+const App = () => {
+  return (
+    <ReduxProvider store={store}>
+      <PaperProvider>
+        <AppNavigator />
+      </PaperProvider>
+    </ReduxProvider>
+  );
+};
+
+export default App;

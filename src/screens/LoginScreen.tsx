@@ -17,57 +17,23 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('window');
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const navigation = useNavigation();
 
-  // Simple login function that navigates to HRDashboardScreen
   const handleLogin = () => {
-    // Form validation
-    if (email.trim() === '' || password.trim() === '') {
-      setError('Lütfen e-posta ve şifre alanlarını doldurun.');
-      return;
-    }
-
-    setLoading(true);
-    
-    // Simulate loading for a more realistic experience
-    setTimeout(() => {
-      console.log("Giriş başarılı, Dashboard'a yönlendiriliyor...");
-      
-      // Try different navigation methods in case one fails
-      try {
-        // Try using navigate first
-        navigation.navigate("Dashboard");
-      } catch (error) {
-        console.log("Navigate failed, trying with reset:", error);
-        try {
-          // If navigate fails, try reset
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "Dashboard" }],
-          });
-        } catch (error) {
-          console.log("Reset also failed, trying with replace:", error);
-          try {
-            // If reset fails, try replace
-            navigation.replace("Dashboard");
-          } catch (error) {
-            console.log("All navigation methods failed:", error);
-            setError("Navigasyon hatası. Lütfen uygulamayı yeniden başlatın.");
-          }
-        }
-      }
-      
-      setLoading(false);
-    }, 1000);
+    // Burada login işlemleri yapılacak
+    // Şimdilik direkt HRDashboard'a yönlendiriyoruz
+    navigation.navigate('NewLeaveRequest' as never);
   };
 
   const togglePasswordVisibility = () => {
@@ -81,8 +47,8 @@ const LoginScreen = ({ navigation }) => {
         colors={['#4776E6', '#8E54E9']}
         style={styles.background}
       />
-      
-      <ScrollView 
+
+      <ScrollView
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}
       >
@@ -99,9 +65,9 @@ const LoginScreen = ({ navigation }) => {
                   style={styles.backgroundGradient}
                 >
                   <View style={styles.overlay}>
-                    <Image 
-                      source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2910/2910756.png' }} 
-                      style={styles.logoImage} 
+                    <Image
+                      source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2910/2910756.png' }}
+                      style={styles.logoImage}
                       resizeMode="contain"
                     />
                     <Text style={styles.overlayTitle}>İK Yönetim Sistemi</Text>
@@ -136,9 +102,9 @@ const LoginScreen = ({ navigation }) => {
             {/* Logo - For Small Screens */}
             {width <= 500 && (
               <View style={styles.smallScreenLogo}>
-                <Image 
-                  source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2910/2910756.png' }} 
-                  style={styles.smallLogoImage} 
+                <Image
+                  source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2910/2910756.png' }}
+                  style={styles.smallLogoImage}
                   resizeMode="contain"
                 />
                 <Text style={styles.smallLogoText}>İK Yönetim Sistemi</Text>
@@ -198,15 +164,15 @@ const LoginScreen = ({ navigation }) => {
                     }}
                     editable={!loading}
                   />
-                  <TouchableOpacity 
-                    onPress={togglePasswordVisibility} 
+                  <TouchableOpacity
+                    onPress={togglePasswordVisibility}
                     style={styles.eyeIcon}
                     disabled={loading}
                   >
-                    <Ionicons 
-                      name={passwordVisible ? "eye-off-outline" : "eye-outline"} 
-                      size={20} 
-                      color="#888" 
+                    <Ionicons
+                      name={passwordVisible ? "eye-off-outline" : "eye-outline"}
+                      size={20}
+                      color="#888"
                     />
                   </TouchableOpacity>
                 </View>
@@ -229,8 +195,8 @@ const LoginScreen = ({ navigation }) => {
                 </TouchableOpacity>
               </View>
 
-              <TouchableOpacity 
-                style={[styles.loginButton, loading && styles.disabledButton]} 
+              <TouchableOpacity
+                style={[styles.loginButton, loading && styles.disabledButton]}
                 onPress={handleLogin}
                 activeOpacity={0.8}
                 disabled={loading}
@@ -257,8 +223,8 @@ const LoginScreen = ({ navigation }) => {
                 </View>
 
                 <View style={styles.socialIcons}>
-                  <TouchableOpacity 
-                    style={styles.socialIcon} 
+                  <TouchableOpacity
+                    style={styles.socialIcon}
                     onPress={handleLogin}
                     disabled={loading}
                   >
