@@ -8,6 +8,7 @@ import HRDashboardScreen from './src/screens/HRDashboardScreen';
 import AIAnalysisScreen from './src/screens/AIAnalysisScreen';
 import LeaveStatsDashboardScreen from './src/screens/LeaveStatsDashboardScreen';
 import NewLeaveRequestScreen from './src/screens/NewLeaveRequestScreen';
+import AdminLoginScreen from './src/screens/AdminLoginScreen';
 
 import { store } from './src/store/store';
 
@@ -47,8 +48,10 @@ const AppNavigator = () => {
         <Stack.Screen
           name="HRDashboard"
           component={HRDashboardScreen}
-          options={{ title: 'İzin Talepleri' }}
-        />
+          options={{
+            title: 'Giriş',
+            headerShown: false
+          }}        />
         <Stack.Screen
           name="AIAnalysis"
           component={AIAnalysisScreen}
@@ -57,13 +60,26 @@ const AppNavigator = () => {
         <Stack.Screen
           name="LeaveStatsDashboard"
           component={LeaveStatsDashboardScreen}
-          options={{ title: 'İzin İstatistikleri' }}
-        />
+          options={{
+            title: 'Admin',
+            headerShown: false
+          }}        />
         <Stack.Screen 
           name="NewLeaveRequest" 
           component={NewLeaveRequestScreen} 
-          options={{ title: 'Yeni İzin Talebi' }}
+          options={{
+            title: 'Admin',
+            headerShown: false
+          }}
         />
+        <Stack.Screen
+          name="AdminLoginScreen"
+          component={AdminLoginScreen}
+          options={{
+            title: 'Admin',
+            headerShown: false
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

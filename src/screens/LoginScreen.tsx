@@ -36,6 +36,11 @@ const LoginScreen = () => {
     navigation.navigate('NewLeaveRequest' as never);
   };
 
+  const handleAdminLogin = () => {
+    // Yönetici giriş sayfasına yönlendir
+    navigation.navigate('AdminLoginScreen' as never);
+  };
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -178,22 +183,6 @@ const LoginScreen = () => {
                 </View>
               </View>
 
-              <View style={styles.options}>
-                <TouchableOpacity
-                  style={styles.rememberContainer}
-                  onPress={() => setRememberMe(!rememberMe)}
-                  disabled={loading}
-                >
-                  <View style={[styles.checkbox, rememberMe && styles.checkboxChecked]}>
-                    {rememberMe && <Text style={styles.checkmark}>✓</Text>}
-                  </View>
-                  <Text style={styles.rememberText}>Beni hatırla</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity disabled={loading}>
-                  <Text style={styles.forgotText}>Şifremi unuttum</Text>
-                </TouchableOpacity>
-              </View>
 
               <TouchableOpacity
                 style={[styles.loginButton, loading && styles.disabledButton]}
@@ -215,37 +204,21 @@ const LoginScreen = () => {
                 </LinearGradient>
               </TouchableOpacity>
 
-              <View style={styles.altLogin}>
-                <View style={styles.dividerContainer}>
-                  <View style={styles.divider} />
-                  <Text style={styles.dividerText}>veya şununla giriş yapın</Text>
-                  <View style={styles.divider} />
+              {/* Yönetici Girişi Butonu - YENİ */}
+              <TouchableOpacity
+                style={styles.adminLoginButton}
+                onPress={handleAdminLogin}
+                activeOpacity={0.8}
+                disabled={loading}
+              >
+                <View style={styles.adminLoginButtonContent}>
+                  <Ionicons name="shield-outline" size={16} color="#8E54E9" style={styles.adminIcon} />
+                  <Text style={styles.adminLoginButtonText}>Yönetici Girişi</Text>
                 </View>
+              </TouchableOpacity>
 
-                <View style={styles.socialIcons}>
-                  <TouchableOpacity
-                    style={styles.socialIcon}
-                    onPress={handleLogin}
-                    disabled={loading}
-                  >
-                    <Ionicons name="logo-google" size={20} color="#DB4437" />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.socialIcon} disabled={loading}>
-                    <Ionicons name="mail" size={20} color="#4285F4" />
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.socialIcon} disabled={loading}>
-                    <Ionicons name="logo-linkedin" size={20} color="#0077B5" />
-                  </TouchableOpacity>
-                </View>
-              </View>
 
-              {width <= 500 && (
-                <View style={styles.footer}>
-                  <Text style={styles.footerText}>
-                    Hesabınız yok mu? <Text style={styles.footerHighlight}>Kaydolun</Text>
-                  </Text>
-                </View>
-              )}
+
             </View>
           </View>
         </KeyboardAvoidingView>
@@ -476,6 +449,30 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 6,
   },
+  // Yönetici Girişi Butonu için yeni stiller - YENİ
+  adminLoginButton: {
+    backgroundColor: 'rgba(142, 84, 233, 0.1)',
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 25,
+    borderWidth: 1,
+    borderColor: 'rgba(142, 84, 233, 0.3)',
+  },
+  adminLoginButtonContent: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  adminIcon: {
+    marginRight: 8,
+  },
+  adminLoginButtonText: {
+    color: '#8E54E9',
+    fontSize: 14,
+    fontWeight: '500',
+    textAlign: 'center',
+  },
+  // Varolan stillere devam
   disabledButton: {
     opacity: 0.7,
   },
