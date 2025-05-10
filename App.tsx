@@ -1,9 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import AppNavigator from './src/navigation/AppNavigator';
-=======
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -14,7 +9,6 @@ import AIAnalysisScreen from './src/screens/AIAnalysisScreen';
 import LeaveStatsDashboardScreen from './src/screens/LeaveStatsDashboardScreen';
 import NewLeaveRequestScreen from './src/screens/NewLeaveRequestScreen';
 import AdminLoginScreen from './src/screens/AdminLoginScreen';
->>>>>>> Yönetici-Girişi
 
 import { store } from './src/store/store';
 
@@ -30,14 +24,6 @@ export type RootStackParamList = {
 
 const AppNavigator = () => {
   return (
-<<<<<<< HEAD
-    <SafeAreaProvider>
-      <AppNavigator />
-      <StatusBar style="auto" />
-    </SafeAreaProvider>
-  );
-}
-=======
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Login"
@@ -110,4 +96,3 @@ const App = () => {
 };
 
 export default App;
->>>>>>> Yönetici-Girişi
